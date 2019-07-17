@@ -21,7 +21,7 @@ steps:
 - script:  ls
   displayName: 'ls'
 
-- script:  node_modules/.bin/cypress run 
+- script:  /home/vsts/work/node_modules/cypress/.bin/cypress run 
   displayName: 'Run Cypress'
 
 
