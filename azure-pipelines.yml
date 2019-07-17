@@ -10,17 +10,24 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: UseNode@1
+  inputs:
+    checkLatest: true
+
+
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+
+
+- script: npm install cypress --save-dev 
+  displayName: 'Install Cypress'
+
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
-- task: UseNode@1
-  inputs:
-    checkLatest: true
 
 
 - task: Npm@1
