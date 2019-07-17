@@ -21,7 +21,7 @@ steps:
 - script:  ls
   displayName: 'ls'
 
-- script:  /home/vsts/work/node_modules/cypress/.bin/cypress run 
+- script:  /home/vsts/work/node_modules/.bin/cypress run --env username=bmb@umbraco.dk,password=1234567890, CYPRESS_baseUrl=https://www.berg.dev/umbraco
   displayName: 'Run Cypress'
 
 
