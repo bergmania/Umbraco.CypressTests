@@ -19,9 +19,9 @@ steps:
 
 
 - script:  ls
-  displayName: 'ls'
+  displayName: 'Override the cypress.json configuation file'
 
-- script:  /home/vsts/work/node_modules/.bin/cypress run --env username=bmb@umbraco.dk,password=1234567890, CYPRESS_baseUrl=https://www.berg.dev/umbraco
+- script:  /home/vsts/work/node_modules/.bin/cypress run
   displayName: 'Run Cypress'
 
 
