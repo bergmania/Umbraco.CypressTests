@@ -25,6 +25,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.SourcesDirectory)\cypress\videos'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+    
