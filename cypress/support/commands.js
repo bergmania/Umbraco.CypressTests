@@ -23,3 +23,42 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+
+Cypress.Commands.add('loginToBackoffice', (username, password, doNotAutoCloseTours) => {
+
+    cy.clearCookies();
+    cy.clearLocalStorage();
+
+    cy.request({
+        method: 'POST',
+        url: '/backoffice/UmbracoApi/Authentication/PostLogin',
+        followRedirect: false,
+        body: {
+            username: username,
+            password: password,
+        },
+        headers: {
+            contentType: "application/json"
+        }
+    }).then((response) => {
+        cy.visit('/').then($page => {
+            cy.log("$page", $page);
+        });
+
+        if (doNotAutoCloseTours !== true) {
+            cy.get('.umb-tour-step__close').click();
+        }
+    });
+});
+
+
+Cypress.Commands.add('addTextToUsernameInput', (username) => {
+    cy.get('input[name="username"]').type(username).should('have.value', username);
+});
+
+Cypress.Commands.add('addTextToPasswordInputAndEnter', (password) => {
+    cy.get('input[name="password"]:visible').type(password + '{enter}').should('have.value', password);
+});
+
+

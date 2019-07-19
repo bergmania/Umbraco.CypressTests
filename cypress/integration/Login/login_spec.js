@@ -1,34 +1,81 @@
 /// <reference types="Cypress" />
-import * as Utils from '../../utils/utils'
 
 context('Login Page', () => {
+  let backOfficeUsernameCorrect = Cypress.env('username');
+  let backOfficePasswordCorrect = Cypress.env('password');
+  let backOfficeUsernameWrong = "wrong@email.com";
+  let backOfficePasswordWrong = "wrongPas$$word";
+  
     beforeEach(() => {
-      cy.clearCookies();
-      cy.clearLocalStorage();
+        cy.clearCookies();
+        cy.clearLocalStorage();
 
-      cy.visit('/')
+        cy.visit('/')
     });
 
-  
-  it('Login using correct email and password', () => {
+    it('Login using correct email and password', () => {
+        cy.addTextToUsernameInput(backOfficeUsernameCorrect);
+        cy.addTextToPasswordInputAndEnter(backOfficePasswordCorrect);
 
-    let backOfficeUsername = Cypress.env('username');
-    let backOfficePassword = Cypress.env('password');
+        // we should be redirected to /dashboard
+        cy.url().should('include', '#/content');
 
-    cy.get('input[name="username"]').type(backOfficeUsername).should('have.value', backOfficeUsername)
-    cy.get('input[name="password"]:visible').type(backOfficePassword+'{enter}').should('have.value', backOfficePassword)
+        // our auth cookie should be present
+        cy.getCookie('UMB-XSRF-TOKEN').should('exist');
+        cy.getCookie('UMB-XSRF-V').should('exist');
+        cy.getCookie('UMB_UCONTEXT').should('exist');
 
-    // we should be redirected to /dashboard
-    cy.url().should('include', '#/content');
+        // Sections should be visible
+        cy.get('ul.sections').should('be.visible');
+    });
 
-    // our auth cookie should be present
-    cy.getCookie('UMB-XSRF-TOKEN').should('exist');
-    cy.getCookie('UMB-XSRF-V').should('exist');
-    cy.getCookie('UMB_UCONTEXT').should('exist');
+  it('Login using incorrect email and password should show error', () => {
+    cy.get('p.text-error').should('not.exist');
 
-    // Sections should be visible
-      cy.get('ul.sections').should('be.visible');
+    cy.addTextToUsernameInput(backOfficeUsernameWrong);
+    cy.addTextToPasswordInputAndEnter(backOfficePasswordWrong);
+    
+    cy.get('p.text-error').should(($p) => {
+      expect($p).to.contain('Login failed for user ' + backOfficeUsernameWrong);
     })
-  
   });
+
+  it('Login without password should show error', () => {
+    cy.get('p.text-error').should('not.exist');
+
+    cy.addTextToUsernameInput(backOfficeUsernameWrong);
+    cy.addTextToPasswordInputAndEnter("");
+    
+    cy.get('p.text-error').should(($p) => {
+      expect($p).to.contain('Username or password cannot be empty');
+    })
+  });
+
+  it('Login without username/email should show error', () => {
+    cy.get('p.text-error').should('not.exist');
+
+    cy.addTextToPasswordInputAndEnter(backOfficePasswordWrong);
+
+    cy.get('p.text-error').should(($p) => {
+      expect($p).to.contain('Username or password cannot be empty');
+    })
+  });
+
+
+  it('Click on show password should change input to text', () => {
+    cy.get('p.text-error').should('not.exist');
+    
+    cy.addTextToPasswordInputAndEnter(backOfficePasswordWrong);
+
+    cy.get('input[name=password]').should('have.attr', 'type', 'password');
+
+    cy.get('.password-toggle a').click();
+    
+    cy.get('input[name=password]').should('have.attr', 'type', 'text');
+    
+    cy.get('.password-toggle a').click();
+
+    cy.get('input[name=password]').should('have.attr', 'type', 'password');
+  });
+});
   
