@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('loginToBackoffice', (username, password, doNotAutoCloseTours) => {
+Cypress.Commands.add('loginToBackoffice', (username, password) => {
 
     cy.clearCookies();
     cy.clearLocalStorage();
@@ -45,10 +45,12 @@ Cypress.Commands.add('loginToBackoffice', (username, password, doNotAutoCloseTou
         cy.visit('/').then($page => {
             cy.log("$page", $page);
         });
-
-        if (doNotAutoCloseTours !== true) {
-            cy.get('.umb-tour-step__close').click();
-        }
+        
+        cy.get('body').should($body => {
+            if($body.hasClass('umb-tour-is-visible')){
+                cy.get('.umb-tour-step__close').click();
+            }
+        });
     });
 });
 
@@ -57,8 +59,25 @@ Cypress.Commands.add('addTextToUsernameInput', (username) => {
     cy.get('input[name="username"]').type(username).should('have.value', username);
 });
 
-Cypress.Commands.add('addTextToPasswordInputAndEnter', (password) => {
-    cy.get('input[name="password"]:visible').type(password + '{enter}').should('have.value', password);
+Cypress.Commands.add('addTextToPasswordInput', (password, doNotEndWithEnter) => {
+    
+    if(doNotEndWithEnter !== true){
+        cy.get('input[name="password"]:visible').type(password + '{enter}').should('have.value', password);
+    }
+    else{
+        cy.get('input[name="password"]:visible').type(password).should('have.value', password);
+    }
+    
+});
+
+Cypress.Commands.add('globalUser', () => {
+    cy.get('[data-element="global-user"]');
+});
+
+
+
+Cypress.Commands.add('globalHelp', () => {
+    cy.get('[data-element="global-help"]');
 });
 
 
