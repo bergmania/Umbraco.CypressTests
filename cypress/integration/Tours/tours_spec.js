@@ -3,6 +3,11 @@
 context('Tours', () => {
     beforeEach(() => {
         cy.loginToBackoffice(Cypress.env('username'), Cypress.env('password'), true);
+        
+        cy.globalHelp().click();
+        
+        cy.get('a.umb-help-list-item').click();
+        cy.get('[label="Rerun"]').click();
     });
 
     it('Introduction - 2560x1600 (Laptop Portrait)', () => {
