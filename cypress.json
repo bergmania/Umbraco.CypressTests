@@ -1,7 +1,0 @@
-{
-  "baseUrl": "https://cypress.s1.umbraco.io/umbraco",
-  "env": {
-    "username": "bmb+cypress@umbraco.dk",
-    "password": "1234567890"
-  }
-}
