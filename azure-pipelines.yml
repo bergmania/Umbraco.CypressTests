@@ -22,8 +22,9 @@ steps:
 
 - script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-[hash].xml,toConsole=true"
   displayName: 'Run Cypress'
-- task: PublishTestResults@2
   continueOnError: true
+  
+- task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: '**/TEST-*.xml'
