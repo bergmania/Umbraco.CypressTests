@@ -24,22 +24,6 @@ steps:
   displayName: 'Run Cypress'
   continueOnError: true
   
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Copy video artifacts'
-#   inputs:
-#     PathtoPublish: '$(Build.SourcesDirectory)/cypress/videos'
-#     ArtifactName: 'videos'
-#     publishLocation: 'Container'
-
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Copy screenshot artifacts'
-#   inputs:
-#     PathtoPublish: '$(Build.SourcesDirectory)/cypress/screenshots'
-#     ArtifactName: 'screenshots'
-#     publishLocation: 'Container'
-
-
-
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)/cypress/videos'
@@ -54,4 +38,4 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: 'results/test-output-*.xml'
