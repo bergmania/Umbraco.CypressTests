@@ -39,3 +39,6 @@ steps:
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'results/test-output-*.xml'
+    failTaskOnFailedTests: true
+    publishRunAttachments: true
+    
