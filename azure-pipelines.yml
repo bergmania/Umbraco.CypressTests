@@ -24,11 +24,6 @@ steps:
   displayName: 'Run Cypress'
   continueOnError: true
   
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-
 - task: PublishBuildArtifacts@1
   displayName: 'Copy video artifacts'
   inputs:
@@ -42,10 +37,8 @@ steps:
     PathtoPublish: '$(Build.SourcesDirectory)/cypress/screenshots'
     ArtifactName: 'screenshots'
     publishLocation: 'Container'
-    
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'results/test-output-*.xml'
-
-
+    testResultsFiles: '**/TEST-*.xml'
