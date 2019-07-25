@@ -22,6 +22,7 @@ steps:
 
 - script:  /home/vsts/work/node_modules/.bin/cypress run
   displayName: 'Run Cypress'
+  continueOnError: true
 
 - task: PublishBuildArtifacts@1
   inputs:
