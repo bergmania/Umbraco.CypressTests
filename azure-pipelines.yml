@@ -20,7 +20,7 @@ steps:
   displayName: 'Read the cypress.json configuation file'
 
 
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-[hash].xml,toConsole=true"
+- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-[hash].xml,toConsole=true && echo Done"
   displayName: 'Run Cypress'
   continueOnError: true
   
