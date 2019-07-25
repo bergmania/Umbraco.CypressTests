@@ -29,9 +29,17 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Copy video artifacts'
   inputs:
     PathtoPublish: '$(Build.SourcesDirectory)/cypress/videos'
     ArtifactName: 'videos'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Copy screenshot artifacts'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/cypress/screenshots'
+    ArtifactName: 'screenshots'
     publishLocation: 'Container'
     
 - task: PublishTestResults@2
