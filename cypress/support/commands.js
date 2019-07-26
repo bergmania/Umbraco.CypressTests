@@ -81,3 +81,86 @@ Cypress.Commands.add('globalHelp', () => {
 });
 
 
+Cypress.Commands.add('saveDocumentType', (docType) => {
+    cy.request({
+        method: 'POST',
+        url: '/backoffice/UmbracoApi/ContentType/PostSave',
+        body: docType,
+        timeout: 90000,
+        headers: {
+            contentType: "application/json"
+        }
+    }).then((response) => {
+        var body = _getBody(response);
+
+        docType.compositeContentTypes = body.compositeContentTypes;
+        docType.isContainer = body.isContainer;
+        docType.allowAsRoot = body.allowAsRoot;
+        docType.allowedTemplates = body.allowedTemplates;
+        docType.allowedContentTypes = body.allowedContentTypes;
+        docType.alias = body.alias;
+        docType.description = body.description;
+        docType.thumbnail = body.thumbnail;
+        docType.name = body.name;
+        docType.id = body.id;
+        docType.icon = body.icon;
+        docType.trashed = body.trashed;
+        docType.key = body.key;
+        docType.parentId = body.parentId;
+        docType.path = body.path;
+        docType.allowCultureVariant = body.allowCultureVariant;
+        docType.isElement = body.isElement;
+        docType.defaultTemplate = body.defaultTemplate;
+        docType.groups = body.groups;
+    });
+});
+
+function _getBody(response){
+    return JSON.parse(response.body.substr(6));
+}
+
+Cypress.Commands.add('deleteDocumentType', (id) => {
+    
+    if(id == null){
+        return;
+    }
+
+    if (typeof id === 'string' || id instanceof String){
+        cy.request({
+            method: 'GET',
+            url: '/backoffice/UmbracoApi/ContentType/GetAll',
+        }).then((response) => {
+            var documentTypes = _getBody(response);
+            
+            for (var i = 0; i<documentTypes.length;i++){
+                if(documentTypes[i].alias === id || documentTypes[i].key === id){
+                    cy.deleteDocumentTypeById(documentTypes[i].id);
+                    break;
+                }
+            } 
+            
+            
+        });
+    }else{ // assume int
+        cy.deleteDocumentTypeById(id);
+    }
+   
+});
+
+Cypress.Commands.add('deleteDocumentTypeById', (id) => {
+
+    cy.request({
+        method: 'POST',
+        url: '/backoffice/UmbracoApi/ContentType/DeleteById?id=' + id,
+        timeout: 150000,
+        headers: {
+            contentType: "application/json"
+        }
+    }).then((response) => {
+
+    });
+   
+});
+
+
+

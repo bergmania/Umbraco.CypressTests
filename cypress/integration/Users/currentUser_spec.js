@@ -1,13 +1,5 @@
 /// <reference types="Cypress" />
 
-// Cypress.on('uncaught:exception', (err, runnable) => {
-//   // returning false here prevents Cypress from
-//   // failing the test
-//   if(err.message.indexOf('r.shift is not a function') !== -1){
-//     return false;
-//   }
-//   return true;
-// })
 context('Current User', () => {
     beforeEach(() => {
         cy.loginToBackoffice(Cypress.env('username'), Cypress.env('password'));
@@ -21,36 +13,58 @@ context('Current User', () => {
     });
 
     it('Update language on current user', () => {
-        cy.get('select[name="culture"]');
-
         cy.get('select[name="culture"]').select("Danish (Denmark)");
 
         saveAndVerifySuccess("User Saved"); // User was english so the text is danish
 
         cy.get('select[name="culture"]').select("English (United States)");
-        
+
         saveAndVerifySuccess("Bruger gemt"); // User was danish so the text is danish
     });
 
     it('Change password', () => {
+        cy.get('[label-key="general_changePassword"] button').click();
+        cy.get('input[name="oldPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="password"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="confirmpassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
 
+        saveAndVerifySuccess("User Saved");
+
+        //Remove again
+        cy.get('[label-key="general_changePassword"] button').click();
+        cy.get('input[name="oldPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="password"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="confirmpassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+
+        saveAndVerifySuccess("User Saved");
     });
 
     it('Update start nodes', () => {
+        //TODO ensure the startnode is empty from start 
 
+        cy.get('#content-start-add').click();
+        cy.get('.umb-panel ul[treealias="content"] [data-element="tree-item-Cypress"]').click();
+        cy.get('.umb-panel [button-style="success"][label-key="general_submit"]').click();
+
+        saveAndVerifySuccess("User Saved");
     });
 
     it('Update access', () => {
-
+        saveAndVerifySuccess("User Saved");
     });
 
     it('Update groups', () => {
-
+        saveAndVerifySuccess("User Saved");
     });
 
     it('Update photo', () => {
-
+        cy.get('.umb-user-details-avatar a:first').click().then($xx => {
+            cy.log("wtf", $xx);
+        });
+        
+        saveAndVerifySuccess("User Saved");
     });
+    
     function saveAndVerifySuccess(text) {
         cy.get('button.btn-success').click();
         

@@ -10,20 +10,10 @@ context('Tours', () => {
         cy.get('[label="Rerun"]').click();
     });
 
-    it('Introduction - 2560x1600 (Laptop Portrait)', () => {
-        cy.viewport(2560, 1600);
+    it('Get Started ', () => {
         executeTour();
     });
 
-    it('Introduction - 1024x1366 (iPad Pro Portrait)', () => {
-        cy.viewport(1024, 1366);
-        executeTour();
-    });
-
-    it('Introduction - 375x812 (iPhone X Portrait)', () => {
-        cy.viewport(375, 812);
-        executeTour();
-    });
 });
 
 function executeTour(){
@@ -45,7 +35,7 @@ function executeTour(){
     //Click on close - User profile
     verifyTitle('User profile');
     cy.get('.umb-overlay-drawer button.btn-link:visible').click();
-
+    
     //Click on user - User profile
     verifyTitle('Help');
     cy.globalHelp().click();
