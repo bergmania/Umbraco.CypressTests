@@ -23,7 +23,7 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+import  * as Helpers from './helpers'
 
 Cypress.Commands.add('loginToBackoffice', (username, password) => {
 
@@ -162,5 +162,65 @@ Cypress.Commands.add('deleteDocumentTypeById', (id) => {
    
 });
 
+
+
+
+Cypress.Commands.add('section', (name) => {
+
+    return cy.get('[data-element="section-'+Helpers.camelize(name)+'"]');
+   
+});
+
+
+Cypress.Commands.add('treeItem', (treeName, itemNamePath1, itemNamePath2, itemNamePath3) => {
+
+    
+cy.log("treeItem");
+
+    if(itemNamePath3){
+        //todo
+    }
+
+    if(itemNamePath2){
+        
+        cy.get('.umb-tree li')
+            .contains(treeName)
+            .closest('li')
+            .find(".umb-tree-item__label")
+            .contains(itemNamePath1)
+            .closest('li')
+            .find("[data-element=\"tree-item-expand\"]")
+            .click();
+
+
+        return cy.get('.umb-tree li')
+            .contains(treeName)
+            .closest('li')
+            .find(".umb-tree-item__label")
+            .contains(itemNamePath1)
+            .closest('li')
+            .find('ul li .umb-tree-item__label')
+            .contains(itemNamePath2)
+            .closest('li');
+    }
+
+
+    return cy.get('.umb-tree li')
+        .contains(treeName)
+        .closest('li')
+        .find(".umb-tree-item__label")
+        .contains(itemNamePath1)
+        .closest('li')
+   
+});
+
+Cypress.Commands.add('contextmenu', {
+    prevSubject: true
+}, ($subject, method) => {
+
+    const e = document.createEvent('HTMLEvents');
+    e.initEvent('contextmenu', true, false);
+    $subject[0].dispatchEvent(e);
+});
 
 

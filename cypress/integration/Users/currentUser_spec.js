@@ -48,22 +48,7 @@ context('Current User', () => {
 
         saveAndVerifySuccess("User Saved");
     });
-
-    it('Update access', () => {
-        saveAndVerifySuccess("User Saved");
-    });
-
-    it('Update groups', () => {
-        saveAndVerifySuccess("User Saved");
-    });
-
-    it('Update photo', () => {
-        cy.get('.umb-user-details-avatar a:first').click().then($xx => {
-            cy.log("wtf", $xx);
-        });
         
-        saveAndVerifySuccess("User Saved");
-    });
     
     function saveAndVerifySuccess(text) {
         cy.get('button.btn-success').click();
