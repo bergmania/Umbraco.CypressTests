@@ -15,42 +15,41 @@ steps:
 - script: curl https://cypress.s1.umbraco.io/ > cypress.json
   displayName: 'Override the cypress.json configuation file'
 
-
 - script: less cypress.json
   displayName: 'Read the cypress.json configuation file'
+########################
 
-
+# Desktop
 - script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-D-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1600,viewportWidth=2560,screenshotsFolder=cypress/artifacts/desktop/screenshots,videosFolder=cypress/artifacts/desktop/videos 
   displayName: 'Run Cypress (Desktop)'
   continueOnError: true
 
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-T-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1366,viewportWidth=1024,screenshotsFolder=cypress/artifacts/tablet/screenshots,videosFolder=cypress/artifacts/tablet/videos
-  displayName: 'Run Cypress (Tablet portrait)'
-  continueOnError: true
-
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-M-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=812,viewportWidth=375,screenshotsFolder=cypress/artifacts/mobile/screenshots,videosFolder=cypress/artifacts/mobile/videos
-  displayName: 'Run Cypress (Mobile protrait)'
-  continueOnError: true
-  
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.SourcesDirectory)/cypress/artifacts'
-    artifact: 'Test artifacts'
-    
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'results/test-output-D-*.xml'
     mergeTestResults: true
     testRunTitle: "Test results Desktop"
-    
+
+
+# Tablet
+- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-T-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1366,viewportWidth=1024,screenshotsFolder=cypress/artifacts/tablet/screenshots,videosFolder=cypress/artifacts/tablet/videos
+  displayName: 'Run Cypress (Tablet portrait)'
+  continueOnError: true
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'results/test-output-T-*.xml'
     mergeTestResults: true
     testRunTitle: "Test results Tablet"
-    
+
+
+# Mobile
+- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-M-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=812,viewportWidth=375,screenshotsFolder=cypress/artifacts/mobile/screenshots,videosFolder=cypress/artifacts/mobile/videos
+  displayName: 'Run Cypress (Mobile protrait)'
+  continueOnError: true
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
@@ -58,3 +57,9 @@ steps:
     mergeTestResults: true
     testRunTitle: "Test results Mobile"
     
+
+########################
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/cypress/artifacts'
+    artifact: 'Test artifacts'
