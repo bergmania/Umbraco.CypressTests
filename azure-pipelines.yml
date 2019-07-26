@@ -40,8 +40,21 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'results/test-output-*.xml'
-    failTaskOnFailedTests: true
-    publishRunAttachments: true
+    testResultsFiles: 'results/test-output-D-*.xml'
     mergeTestResults: true
+    testRunTitle: "Test results Desktop"
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'results/test-output-T-*.xml'
+    mergeTestResults: true
+    testRunTitle: "Test results Tablet"
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'results/test-output-M-*.xml'
+    mergeTestResults: true
+    testRunTitle: "Test results Mobile"
     
