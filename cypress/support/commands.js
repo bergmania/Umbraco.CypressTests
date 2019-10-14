@@ -32,7 +32,7 @@ Cypress.Commands.add('loginToBackoffice', (username, password) => {
 
     cy.request({
         method: 'POST',
-        url: '/backoffice/UmbracoApi/Authentication/PostLogin',
+        url: '/umbraco/backoffice/UmbracoApi/Authentication/PostLogin',
         followRedirect: false,
         body: {
             username: username,
@@ -42,7 +42,7 @@ Cypress.Commands.add('loginToBackoffice', (username, password) => {
             contentType: "application/json"
         }
     }).then((response) => {
-        cy.visit('/').then($page => {
+        cy.visit('/umbraco/').then($page => {
             cy.log("$page", $page);
         });
         
@@ -84,7 +84,7 @@ Cypress.Commands.add('globalHelp', () => {
 Cypress.Commands.add('saveDocumentType', (docType) => {
     cy.request({
         method: 'POST',
-        url: '/backoffice/UmbracoApi/ContentType/PostSave',
+        url: '/umbraco/backoffice/UmbracoApi/ContentType/PostSave',
         body: docType,
         timeout: 90000,
         headers: {
@@ -128,7 +128,7 @@ Cypress.Commands.add('deleteDocumentType', (id) => {
     if (typeof id === 'string' || id instanceof String){
         cy.request({
             method: 'GET',
-            url: '/backoffice/UmbracoApi/ContentType/GetAll',
+            url: '/umbraco/backoffice/UmbracoApi/ContentType/GetAll',
         }).then((response) => {
             var documentTypes = _getBody(response);
             
@@ -151,7 +151,7 @@ Cypress.Commands.add('deleteDocumentTypeById', (id) => {
 
     cy.request({
         method: 'POST',
-        url: '/backoffice/UmbracoApi/ContentType/DeleteById?id=' + id,
+        url: '/umbraco/backoffice/UmbracoApi/ContentType/DeleteById?id=' + id,
         timeout: 150000,
         headers: {
             contentType: "application/json"

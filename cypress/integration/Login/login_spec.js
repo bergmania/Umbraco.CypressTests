@@ -10,7 +10,7 @@ context('Login Page', () => {
         cy.clearCookies();
         cy.clearLocalStorage();
 
-        cy.visit('/')
+        cy.visit('/umbraco')
     });
 
     it('Login using correct email and password and enter in password field', () => {
