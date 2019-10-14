@@ -26,7 +26,7 @@ context('Current User', () => {
         cy.get('[label-key="general_changePassword"] button').click();
         cy.get('input[name="oldPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
         cy.get('input[name="password"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
-        cy.get('input[name="confirmpassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="confirmPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
 
         saveAndVerifySuccess("User Saved");
 
@@ -34,7 +34,7 @@ context('Current User', () => {
         cy.get('[label-key="general_changePassword"] button').click();
         cy.get('input[name="oldPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
         cy.get('input[name="password"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
-        cy.get('input[name="confirmpassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
+        cy.get('input[name="confirmPassword"]').type(Cypress.env('password')).should('have.value', Cypress.env('password'));
 
         saveAndVerifySuccess("User Saved");
     });
