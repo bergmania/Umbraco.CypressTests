@@ -11,6 +11,9 @@ steps:
 
 - script: npm install cypress --save-dev 
   displayName: 'Install Cypress'
+  
+- script: npm install
+  displayName: 'Npm install'
 
 - script: curl https://cypress.s1.umbraco.io/cypress/ > cypress.json
   displayName: 'Override the cypress.json configuation file'
