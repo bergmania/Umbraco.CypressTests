@@ -20,7 +20,7 @@ steps:
 ########################
 
 # Desktop
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-D-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1600,viewportWidth=2560,screenshotsFolder=cypress/artifacts/desktop/screenshots,videosFolder=cypress/artifacts/desktop/videos 
+- script:  /node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-D-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1600,viewportWidth=2560,screenshotsFolder=cypress/artifacts/desktop/screenshots,videosFolder=cypress/artifacts/desktop/videos 
   displayName: 'Run Cypress (Desktop)'
   continueOnError: true
 
@@ -33,7 +33,8 @@ steps:
 
 
 # Tablet
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-T-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1366,viewportWidth=1024,screenshotsFolder=cypress/artifacts/tablet/screenshots,videosFolder=cypress/artifacts/tablet/videos
+
+- script:  /node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-T-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=1366,viewportWidth=1024,screenshotsFolder=cypress/artifacts/tablet/screenshots,videosFolder=cypress/artifacts/tablet/videos
   displayName: 'Run Cypress (Tablet portrait)'
   continueOnError: true
 
@@ -46,7 +47,7 @@ steps:
 
 
 # Mobile
-- script:  /home/vsts/work/node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-M-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=812,viewportWidth=375,screenshotsFolder=cypress/artifacts/mobile/screenshots,videosFolder=cypress/artifacts/mobile/videos
+- script:  /node_modules/.bin/cypress run --reporter junit --reporter-options "mochaFile=results/test-output-M-[hash].xml,toConsole=true" --config videoUploadOnPasses=false,viewportHeight=812,viewportWidth=375,screenshotsFolder=cypress/artifacts/mobile/screenshots,videosFolder=cypress/artifacts/mobile/videos
   displayName: 'Run Cypress (Mobile protrait)'
   continueOnError: true
 
