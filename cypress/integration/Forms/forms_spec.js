@@ -5,7 +5,7 @@ context('Forms', () => {
     beforeEach(() => {
         cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'));
 
-        cy.umbracoSection("Forms").click(); // Need to force for mobiles, where the link is hidden by default
+        cy.umbracoSection("forms").click(); // Need to force for mobiles, where the link is hidden by default
     });
     
     it('Create Form - Simple with just the consent field', () => {
