@@ -1,0 +1,8 @@
+{
+  "name": "Umbraco.CypressTests",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "umbraco-cypress-testhelpers": "^1.0.0-beta-22"
+  }
+}

@@ -2,9 +2,9 @@
 
 context('Current User', () => {
     beforeEach(() => {
-        cy.loginToBackoffice(Cypress.env('username'), Cypress.env('password'));
+        cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'));
 
-        cy.globalUser().click();
+        cy.umbracoGlobalUser().click();
         cy.get('[data-element="button-editUser"]').click();
     });
 

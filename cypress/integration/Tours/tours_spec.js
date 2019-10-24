@@ -1,13 +1,12 @@
 /// <reference types="Cypress" />
-
 context('Tours', () => {
     beforeEach(() => {
-        cy.loginToBackoffice(Cypress.env('username'), Cypress.env('password'), true);
+        cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'), true);
         
-        cy.globalHelp().click();
-        
-        cy.get('a.umb-help-list-item').click();
-        cy.get('[label="Rerun"]').click();
+        cy.umbracoGlobalHelp().click();
+
+        cy.get('a.umb-help-list-item:first').click();
+        cy.get('[label="Rerun"], [label="Start"]').click();
     });
 
     it('Get Started ', () => {
@@ -28,7 +27,7 @@ function executeTour(){
 
     //Click on user - User profile
     verifyTitle('User profile');
-    cy.globalUser().click();
+    cy.umbracoGlobalUser().click();
     
     verifyTitleAndClickNext('User profile');
     
@@ -38,7 +37,7 @@ function executeTour(){
     
     //Click on user - User profile
     verifyTitle('Help');
-    cy.globalHelp().click();
+    cy.umbracoGlobalHelp().click();
 
     verifyTitleAndClickNext('Help');
     verifyTitleAndClickNext('Tours');

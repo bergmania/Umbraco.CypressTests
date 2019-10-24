@@ -3,11 +3,11 @@ import  * as Helpers from '../../support/helpers'
 
 context('Forms', () => {
     beforeEach(() => {
-        cy.loginToBackoffice(Cypress.env('username'), Cypress.env('password'));
+        cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'));
 
-        cy.section("Forms").click();
+        cy.umbracoSection("Forms").click(); // Need to force for mobiles, where the link is hidden by default
     });
-
+    
     it('Create Form - Simple with just the consent field', () => {
         let formName = 'My test form';
 
@@ -35,7 +35,7 @@ context('Forms', () => {
     function ensureFormNameIsDeleted(formName){
         cy.request({
             method: 'GET',
-            url: '/backoffice/UmbracoForms/Form/GetOverView',
+            url: '/umbraco/backoffice/UmbracoForms/Form/GetOverView',
         }).then((response) => {
           var body = Helpers.getReponseBody(response);
           
@@ -43,7 +43,7 @@ context('Forms', () => {
               if(body[i].name === formName){
                   cy.request({
                       method: 'POST',
-                      url: '/backoffice/UmbracoForms/Form/DeleteByGuid?guid=' + body[i].id,
+                      url: '/umbraco/backoffice/UmbracoForms/Form/DeleteByGuid?guid=' + body[i].id,
                   }).then((response) => {
                      
                   });
