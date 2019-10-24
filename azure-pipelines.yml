@@ -9,6 +9,9 @@ steps:
   inputs:
     checkLatest: true
 
+- script: npm install cypress --save-dev 
+  displayName: 'Install Cypress'
+  
 - script: npm install
   displayName: 'Npm install'
 
